@@ -203,6 +203,10 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         emit ClaimedRewards(msg.sender, stakeData.token, bonus);
     }
 
+      function getUserStakes(address _user) external view returns (Stake[] memory) {
+        return stakes[_user];
+    }
+
     /// @dev Allow contract to receive ETH
     receive() external payable {}
 }
