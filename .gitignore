@@ -2,3 +2,8 @@ node_modules/
 foundry-out/
 .cache/
 .env
+
+# Ignore all files in lib
+/lib/
+# But keep openzeppelin-contracts-upgradeable
+!/lib/openzeppelin-contracts-upgradeable/

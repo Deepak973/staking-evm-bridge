@@ -39,6 +39,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
 
     event Staked(address indexed user, address indexed token, uint256 amount, uint256 duration);
     event Unstaked(address indexed user, address indexed token, uint256 amount, bool early);
+    event ClaimedRewards(address indexed user, address indexed token, uint256 amount);
     event TreasuryUpdated(address indexed newTreasury);
     event PenaltyPercentUpdated(uint256 newPercent);
     event BonusPercentUpdated(uint256 newPercent);
@@ -199,6 +200,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         }
         //set rewards claimed to true
         stakeData.rewardsClaimed = true;
+        emit ClaimedRewards(msg.sender, stakeData.token, bonus);
     }
 
     /// @dev Allow contract to receive ETH
