@@ -5,5 +5,5 @@ foundry-out/
 
 # Ignore all files in lib
 /lib/
-# But keep openzeppelin-contracts-upgradeable
-!/lib/openzeppelin-contracts-upgradeable/
+
+
