@@ -10,6 +10,8 @@ out/
 # Docs
 docs/
 
+node_modules/
+
 # Ignores the entire lib folder except submodules
 lib/*
 

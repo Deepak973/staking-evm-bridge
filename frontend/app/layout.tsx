@@ -1,39 +1,32 @@
-"use client";
-
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+
+import { headers } from "next/headers"; // added
 import "./globals.css";
-import { WagmiProvider } from "wagmi";
-import { config } from "./wagmi/config";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ContextProvider from "@/app/context";
+import { Nav } from "./components/Nav";
+import { Footer } from "./components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+export const metadata: Metadata = {
+  title: "Staking Bridge",
+  description: "Staking Bridge",
+};
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const queryClient = new QueryClient();
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersData = await headers();
+  const cookies = headersData.get("cookie");
+
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            {children}
-          </QueryClientProvider>
-        </WagmiProvider>
+      <body className="flex flex-col min-h-screen">
+        <ContextProvider cookies={cookies}>
+          <Nav />
+          <main className="container mx-auto px-4 flex-grow">{children}</main>
+          <Footer />
+        </ContextProvider>
       </body>
     </html>
   );

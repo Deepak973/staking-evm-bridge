@@ -6,6 +6,8 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {IERC20} from "@openzeppelin/contracts/interfaces/IERC20.sol";
+import {Client} from "@chainlink/contracts-ccip/src/v0.8/ccip/libraries/Client.sol";
+import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
 
 contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
     using SafeERC20 for IERC20;
@@ -31,6 +33,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
 
     uint256 public penaltyPercent;
     uint256 public bonusPercent;
+    IRouterClient private s_router;
 
     mapping(StakingDuration => uint256) public durationPeriods;
 
@@ -43,12 +46,22 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     event TreasuryUpdated(address indexed newTreasury);
     event PenaltyPercentUpdated(uint256 newPercent);
     event BonusPercentUpdated(uint256 newPercent);
+    event TokensTransferredCrossChain(
+        bytes32 messageId,
+        uint64 destinationChainSelector,
+        address receiver,
+        address token,
+        uint256 amount,
+        address nativeToken,
+        uint256 nativeFee
+    );
 
     /// @dev Initialize function for upgradeable contract
-    function initialize(address _treasury) public initializer {
+    function initialize(address _treasury, address _router) public initializer {
         __Ownable_init(msg.sender);
         __ReentrancyGuard_init();
         treasury = _treasury;
+        s_router = IRouterClient(_router);
 
         penaltyPercent = 10;
         bonusPercent = 2;
@@ -60,6 +73,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     }
 
     /// @dev Update penalty percentage (only owner)
+    /// @param _newPercent The new penalty percentage
     function setPenaltyPercent(uint256 _newPercent) external onlyOwner {
         require(_newPercent <= 100, "Penalty cannot exceed 100%");
         penaltyPercent = _newPercent;
@@ -67,13 +81,16 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     }
 
     /// @dev Update bonus percentage (only owner)
+    /// @param _newPercent The new bonus percentage
     function setBonusPercent(uint256 _newPercent) external onlyOwner {
         require(_newPercent <= 100, "Bonus cannot exceed 100%");
         bonusPercent = _newPercent;
         emit BonusPercentUpdated(_newPercent);
     }
-    /// @dev Update treasury address (only owner)
+   
 
+    /// @dev Update treasury address (only owner)
+    /// @param _newTreasury The new treasury address
     function setTreasury(address _newTreasury) external onlyOwner {
         require(_newTreasury != address(0), "Invalid address");
         treasury = _newTreasury;
@@ -81,6 +98,9 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     }
 
     /// @dev Stake ERC-20 tokens
+    /// @param _token The token address
+    /// @param _amount The amount of tokens to stake
+    /// @param _duration The duration of the stake
     function stakeERC20(address _token, uint256 _amount, StakingDuration _duration) external nonReentrant {
         require(_amount > 0, "Amount must be greater than zero");
 
@@ -92,6 +112,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     }
 
     /// @dev Stake native assets (ETH)
+    /// @param _duration The duration of the stake
     function stakeETH(StakingDuration _duration) external payable nonReentrant {
         require(msg.value > 0, "Amount must be greater than zero");
 
@@ -103,6 +124,8 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     }
 
     /// @dev Unstake tokens (with penalty if early)
+    /// @param _index The index of the stake
+    /// @notice This function is used to unstake token and will penalize the user if unstaked before the staking period ends
     function unstakeManually(uint256 _index) external nonReentrant {
         require(_index < stakes[msg.sender].length, "Invalid stake index");
 
@@ -145,7 +168,10 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     }
 
     /// @dev Process matured stakes for multiple user
-    function processMaturedStakes(address[] calldata users, uint256[][] calldata stakeIndexes) external nonReentrant {
+    /// @param users The users addresses
+    /// @param stakeIndexes The stake indexes
+    /// @notice This function is used to process matured stakes for multiple users automatically
+    function processMaturedStakes(address[] calldata users, uint256[][] calldata stakeIndexes) external onlyOwner nonReentrant {
         require(users.length == stakeIndexes.length, "Mismatched input lengths");
         for (uint256 u = 0; u < users.length; u++) {
             address user = users[u];
@@ -161,7 +187,6 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
                 require(block.timestamp >= stakeData.startTime + stakingPeriod, "Stake not matured");
 
                 uint256 amount = stakeData.amount;
-               
 
                 // Transfer matured stake
                 if (stakeData.token == address(0)) {
@@ -182,6 +207,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     }
 
     /// @dev Claim rewards for a stake
+    /// @param _index The index of the stake
     function claimRewards(uint256 _index) external nonReentrant {
         require(_index < stakes[msg.sender].length, "Invalid stake index");
         Stake storage stakeData = stakes[msg.sender][_index];
@@ -203,10 +229,87 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         emit ClaimedRewards(msg.sender, stakeData.token, bonus);
     }
 
-      function getUserStakes(address _user) external view returns (Stake[] memory) {
+
+    /// @dev Get user stakes
+    /// @param _user The user address
+    /// @return stakes The user stakes
+    function getUserStakes(address _user) external view returns (Stake[] memory) {
         return stakes[_user];
     }
 
+
+    /// @dev Transfer tokens cross chain
+    /// @param _destinationChainSelector The destination chain selector
+    /// @param _receiver The receiver address
+    /// @param _token The token address
+    /// @param _amount The amount of tokens to transfer
+    /// @return messageId The message ID
+    /// @notice This function is used to transfer tokens cross chain and require approval from the token contract before calling this function
+    function transferTokenCrossChain(
+        uint64 _destinationChainSelector,
+        address _receiver,
+        address _token,
+        uint256 _amount
+    ) external returns (bytes32 messageId) {
+        // address(0) means fees are paid in native gas
+        Client.EVM2AnyMessage memory evm2AnyMessage = _buildCCIPMessage(_receiver, _token, _amount, address(0));
+
+        // Get the fee required to send the message
+        uint256 fees = s_router.getFee(_destinationChainSelector, evm2AnyMessage);
+
+        if (fees > address(this).balance) {
+            revert("Not enough balance");
+        }
+
+        // approve the Router to spend tokens on contract's behalf. It will spend the amount of the given token
+        IERC20(_token).approve(address(s_router), _amount);
+
+        // Send the message through the router and store the returned message ID
+        messageId = s_router.ccipSend{value: fees}(_destinationChainSelector, evm2AnyMessage);
+
+        // Emit an event with message details
+        emit TokensTransferredCrossChain(
+            messageId, _destinationChainSelector, _receiver, _token, _amount, address(0), fees
+        );
+
+        // Return the message ID
+        return messageId;
+    }
+
+    function _buildCCIPMessage(address _receiver, address _token, uint256 _amount, address _feeTokenAddress)
+        private
+        pure
+        returns (Client.EVM2AnyMessage memory)
+    {
+        // Set the token amounts
+        Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
+        tokenAmounts[0] = Client.EVMTokenAmount({token: _token, amount: _amount});
+        // Create an EVM2AnyMessage struct in memory with necessary information for sending a cross-chain message
+        return Client.EVM2AnyMessage({
+            receiver: abi.encode(_receiver), // ABI-encoded receiver address
+            data: "", // No data
+            tokenAmounts: tokenAmounts, // The amount and type of token being transferred
+            extraArgs: Client._argsToBytes(
+                // Additional arguments, setting gas limit and allowing out-of-order execution.
+                // Best Practice: For simplicity, the values are hardcoded. It is advisable to use a more dynamic approach
+                // where you set the extra arguments off-chain. This allows adaptation depending on the lanes, messages,
+                // and ensures compatibility with future CCIP upgrades. Read more about it here: https://docs.chain.link/ccip/best-practices#using-extraargs
+                Client.EVMExtraArgsV2({
+                    gasLimit: 0, // Gas limit for the callback on the destination chain
+                    allowOutOfOrderExecution: true // Allows the message to be executed out of order relative to other messages from the same sender
+                })
+            ),
+            // Set the feeToken to a feeTokenAddress, indicating specific asset will be used for fees
+            feeToken: _feeTokenAddress
+        });
+    }
+
+    function estimateFeeForCrossChain(uint64 _destinationChainSelector, address _receiver, address _token, uint256 _amount) external view returns (uint256) {
+        Client.EVM2AnyMessage memory evm2AnyMessage = _buildCCIPMessage(_receiver, _token, _amount, address(0));
+        return s_router.getFee(_destinationChainSelector, evm2AnyMessage);
+    }
+
     /// @dev Allow contract to receive ETH
+    /// @notice This function is used to allow the contract to receive ETH
     receive() external payable {}
 }
