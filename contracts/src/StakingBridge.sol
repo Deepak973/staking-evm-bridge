@@ -12,6 +12,7 @@ import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/
 contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
     using SafeERC20 for IERC20;
 
+    /// @dev Staking duration enum
     enum StakingDuration {
         ONE_MONTH, // 30 days
         SIX_MONTHS, // 180 days
@@ -20,6 +21,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
 
     }
 
+    /// @dev Stake struct
     struct Stake {
         address user;
         address token; // Address(0) for native asset (ETH)
@@ -31,21 +33,32 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         bool allowedToClaimRewards;
     }
 
+    /// @dev Penalty percentage
     uint256 public penaltyPercent;
+    /// @dev Bonus percentage
     uint256 public bonusPercent;
+    /// @dev CCIP router
     IRouterClient private s_router;
-
+    /// @dev Staking duration periods
     mapping(StakingDuration => uint256) public durationPeriods;
-
+    /// @dev Stakes
     mapping(address => Stake[]) public stakes;
+    /// @dev Treasury address
     address public treasury;
 
+    /// @dev Staked event
     event Staked(address indexed user, address indexed token, uint256 amount, uint256 duration);
+    /// @dev Unstaked event
     event Unstaked(address indexed user, address indexed token, uint256 amount, bool early);
+    /// @dev Claimed rewards event
     event ClaimedRewards(address indexed user, address indexed token, uint256 amount);
+    /// @dev Treasury updated event
     event TreasuryUpdated(address indexed newTreasury);
+    /// @dev Penalty percentage updated event
     event PenaltyPercentUpdated(uint256 newPercent);
+    /// @dev Bonus percentage updated event
     event BonusPercentUpdated(uint256 newPercent);
+    /// @dev Tokens transferred cross chain event
     event TokensTransferredCrossChain(
         bytes32 messageId,
         uint64 destinationChainSelector,
@@ -57,6 +70,8 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     );
 
     /// @dev Initialize function for upgradeable contract
+    /// @param _treasury The treasury address
+    /// @param _router The CCIP router address
     function initialize(address _treasury, address _router) public initializer {
         __Ownable_init(msg.sender);
         __ReentrancyGuard_init();
@@ -276,6 +291,12 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         return messageId;
     }
 
+    /// @dev Build CCIP message
+    /// @param _receiver The receiver address
+    /// @param _token The token address
+    /// @param _amount The amount of tokens to transfer
+    /// @param _feeTokenAddress The fee token address
+    /// @return evm2AnyMessage The EVM2AnyMessage struct
     function _buildCCIPMessage(address _receiver, address _token, uint256 _amount, address _feeTokenAddress)
         private
         pure
@@ -304,12 +325,18 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         });
     }
 
+
+    /// @dev Estimate fee for cross chain
+    /// @param _destinationChainSelector The destination chain selector
+    /// @param _receiver The receiver address
+    /// @param _token The token address
+    /// @param _amount The amount of tokens to transfer
+    /// @return fee The fee
     function estimateFeeForCrossChain(uint64 _destinationChainSelector, address _receiver, address _token, uint256 _amount) external view returns (uint256) {
         Client.EVM2AnyMessage memory evm2AnyMessage = _buildCCIPMessage(_receiver, _token, _amount, address(0));
         return s_router.getFee(_destinationChainSelector, evm2AnyMessage);
     }
 
-    /// @dev Allow contract to receive ETH
-    /// @notice This function is used to allow the contract to receive ETH
+    /// @notice Allow contract to receive ETH
     receive() external payable {}
 }
