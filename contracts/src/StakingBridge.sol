@@ -4,12 +4,13 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts/interfaces/IERC20.sol";
 
 contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable {
-    using SafeERC20Upgradeable for IERC20Upgradeable;
+
+    using SafeERC20 for IERC20;
+  
 
     enum StakingDuration {
         ONE_MONTH,    // 30 days
@@ -43,7 +44,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
 
     /// @dev Initialize function for upgradeable contract
     function initialize(address _treasury) public initializer {
-        __Ownable_init();
+        __Ownable_init(msg.sender);
         __ReentrancyGuard_init();
         treasury = _treasury;
         
@@ -74,7 +75,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     function stakeERC20(address _token, uint256 _amount, StakingDuration _duration) external nonReentrant {
         require(_amount > 0, "Amount must be greater than zero");
 
-        IERC20Upgradeable(_token).safeTransferFrom(msg.sender, address(this), _amount);
+        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
 
         stakes[msg.sender].push(Stake(msg.sender, _token, _amount, block.timestamp, _duration, false));
 
@@ -109,24 +110,23 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
             if (stakeData.token == address(0)) {
                 payable(treasury).transfer(penalty);
             } else {
-                IERC20Upgradeable(stakeData.token).safeTransfer(treasury, penalty);
+                IERC20(stakeData.token).safeTransfer(treasury, penalty);
             }
-        } else if (stakingPeriod >= 180 days) {
-            // Reward users who stake for more than 6 months
-            uint256 bonus = (amount * bonusPercent) / 100;
-            amount += bonus;
-        }
-
-        // Transfer unstaked assets
+        } 
+        else
+        {
+             // Transfer unstaked assets
         if (stakeData.token == address(0)) {
             payable(msg.sender).transfer(amount);
         } else {
-            IERC20Upgradeable(stakeData.token).safeTransfer(msg.sender, amount);
+            IERC20(stakeData.token).safeTransfer(msg.sender, amount);
         }
 
         stakeData.claimed = true;
+        }
+          emit Unstaked(msg.sender, stakeData.token, amount, early);
 
-        emit Unstaked(msg.sender, stakeData.token, amount, early);
+       
     }
 
     /// @dev Update treasury address (only owner)
@@ -134,6 +134,44 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         require(_newTreasury != address(0), "Invalid address");
         treasury = _newTreasury;
         emit TreasuryUpdated(_newTreasury);
+    }
+
+    /// @dev Process matured stakes for a user
+    function processMaturedStakes(address user, uint256[] calldata stakeIndexes) external nonReentrant {
+        for (uint256 i = 0; i < stakeIndexes.length; i++) {
+            uint256 index = stakeIndexes[i];
+            require(index < stakes[user].length, "Invalid stake index");
+            
+            Stake storage stakeData = stakes[user][index];
+            require(!stakeData.claimed, "Already unstaked");
+            
+            uint256 stakingPeriod = durationPeriods[stakeData.duration];
+            require(block.timestamp >= stakeData.startTime + stakingPeriod, "Stake not matured");
+
+            uint256 amount = stakeData.amount;
+            if (stakingPeriod >= 180 days) {
+                uint256 bonus = (amount * bonusPercent) / 100;
+                amount += bonus;
+            }
+
+            // Transfer matured stake
+            if (stakeData.token == address(0)) {
+                payable(user).transfer(amount);
+            } else {
+                IERC20(stakeData.token).safeTransfer(user, amount);
+            }
+
+            stakeData.claimed = true;
+            emit Unstaked(user, stakeData.token, amount, false);
+        }
+    }
+
+    function claimRewards (address user, uint256[] calldata stakeIndexes) external nonReentrant {
+        for (uint256 i = 0; i < stakeIndexes.length; i++) {
+            uint256 index = stakeIndexes[i];
+            require(index < stakes[user].length, "Invalid stake index");
+            
+        }
     }
 
     /// @dev Allow contract to receive ETH
