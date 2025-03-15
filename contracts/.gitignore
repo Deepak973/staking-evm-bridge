@@ -10,5 +10,9 @@ out/
 # Docs
 docs/
 
+# Ignores the entire lib folder except submodules
+lib/*
+!lib/openzeppelin-contracts-upgradeable
+
 # Dotenv file
 .env
