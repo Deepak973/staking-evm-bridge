@@ -6,10 +6,13 @@ import logger from "../utils/logger";
 export class ContractEventService {
   private provider: ethers.WebSocketProvider;
   private contract: ethers.Contract;
+
   constructor() {
-    this.provider = new ethers.WebSocketProvider(process.env.RPC_URL!);
+    this.provider = new ethers.WebSocketProvider(
+      "wss://base-sepolia.g.alchemy.com/v2/9WBG_MVRsmOhaR5bEVKYclPwb_q9tIiw"
+    );
     this.contract = new ethers.Contract(
-      process.env.CONTRACT_ADDRESS!,
+      "0x494B5aE8c79292da3238513eB69eBB1373d127d5",
       contractABI.abi,
       this.provider
     );
