@@ -15,12 +15,15 @@ export const verifyAuth = async (
 ): Promise<void> => {
   try {
     const { address, signature } = req.body;
-    const user = (await User.findOne({
+    let user = (await User.findOne({
       walletAddress: address.toLowerCase(),
     })) as IUser;
     if (!user) {
-      res.status(404).json({ error: "User not found" });
-      return;
+      user = await User.create({
+        walletAddress: address.toLowerCase(),
+        nonce: generateNonce(),
+        lastSignIn: new Date(),
+      });
     }
 
     const message = getAuthMessage();

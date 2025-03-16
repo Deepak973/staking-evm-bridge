@@ -34,6 +34,7 @@ export function CrossChainBridge() {
   const [insufficientBalance, setInsufficientBalance] = useState(false);
   const [hasAllowance, setHasAllowance] = useState(false);
   const [estimatedFee, setEstimatedFee] = useState<bigint | null>(null);
+  const [lastTxHash, setLastTxHash] = useState<string | null>(null);
 
   // Load USDC details
   useEffect(() => {
@@ -132,7 +133,7 @@ export function CrossChainBridge() {
     }
 
     setIsSending(true);
-
+    setLastTxHash(null);
     const loadingToastId = toast.loading("Processing cross-chain transfer...");
 
     try {
@@ -164,10 +165,10 @@ export function CrossChainBridge() {
         hash: txHash,
       });
 
-      // Dismiss the loading toast
       toast.dismiss(loadingToastId);
 
       if (receipt.status === "success") {
+        setLastTxHash(txHash);
         toast.success("Cross-chain transfer initiated!");
         setAmount("");
         setReceiverAddress("");
@@ -175,7 +176,6 @@ export function CrossChainBridge() {
         toast.error("Cross-chain transfer failed");
       }
     } catch (error) {
-      // Dismiss the loading toast on error too
       toast.dismiss(loadingToastId);
       console.error("Error in cross-chain transfer:", error);
       toast.error("Failed to process cross-chain transfer");
@@ -337,6 +337,43 @@ export function CrossChainBridge() {
           ? "Send USDC Cross-Chain"
           : "Approve & Send USDC"}
       </button>
+
+      {/* Add Transaction Hash Display */}
+      {lastTxHash && (
+        <div className="mt-4 p-4 bg-gray-50 rounded-md">
+          <p className="text-sm font-medium text-gray-700">Transaction Hash:</p>
+          <div className="flex items-center gap-2">
+            <a
+              href={`https://sepolia.basescan.org/tx/${lastTxHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-blue-600 hover:text-blue-800 truncate"
+            >
+              {lastTxHash}
+            </a>
+            <button
+              onClick={() => navigator.clipboard.writeText(lastTxHash)}
+              className="text-gray-500 hover:text-gray-700"
+              title="Copy to clipboard"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

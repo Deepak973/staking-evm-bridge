@@ -132,3 +132,95 @@
 {"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T11:51:35.180Z"}
 {"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T11:51:39.421Z"}
 {"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T11:51:39.829Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T11:59:34.358Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T11:59:34.719Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:05:17.523Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:05:17.902Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:06:09.591Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:06:10.035Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:07:03.862Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:07:04.373Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:12:21.531Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:12:21.924Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:17:51.479Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:17:51.939Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:18:29.285Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:18:29.794Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:18:37.890Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:18:38.296Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:27:03.630Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:27:03.985Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:27:36.041Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:27:36.424Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:29:00.464Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:29:00.467Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:29:00.790Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:29:06.675Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:29:06.678Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:29:07.009Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:30:08.276Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:30:08.280Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:30:08.605Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:39:57.128Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:39:57.134Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:39:57.407Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:40:02.410Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:40:02.414Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:40:02.681Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:41:24.656Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:41:24.659Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:41:24.939Z"}
+{"level":"info","message":"WebSocket Provider Connected","timestamp":"2025-03-16T12:44:23.302Z"}
+{"level":"info","message":"Listening to contract at: 0xDdE8D008f4D4845758D8D83737F5034491443900","timestamp":"2025-03-16T12:44:23.304Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:44:23.307Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:44:23.630Z"}
+{"level":"error","message":"Setup error: No contract found at specified address","stack":"Error: No contract found at specified address\n    at ContractEventService.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:32:15)\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-03-16T12:44:24.303Z"}
+{"level":"info","message":"WebSocket Provider Connected","timestamp":"2025-03-16T12:44:46.722Z"}
+{"level":"info","message":"Listening to contract at: 0xDdE8D008f4D4845758D8D83737F5034491443900","timestamp":"2025-03-16T12:44:46.724Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:44:46.727Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:44:47.029Z"}
+{"level":"info","message":"Setting up event listeners...","timestamp":"2025-03-16T12:44:47.705Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:45:07.731Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:45:07.734Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:45:08.006Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:45:14.792Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:45:14.795Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:45:15.095Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:45:23.053Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:45:23.057Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:45:23.363Z"}
+{"level":"error","message":"Error saving stake event: stakeId.toNumber is not a function","stack":"TypeError: stakeId.toNumber is not a function\n    at ContractEventService.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:29:30)\n    at Generator.next (<anonymous>)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:4:12)\n    at Proxy.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:26:63)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:617:22\n    at Array.filter (<anonymous>)\n    at _emit (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:611:35)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-03-16T12:45:43.286Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:48:01.231Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:48:01.234Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:48:01.527Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:48:42.939Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:48:42.943Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:48:43.391Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:48:55.585Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:48:55.588Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:48:55.849Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:49:40.119Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:49:40.122Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:49:40.411Z"}
+{"level":"error","message":"Error saving stake event: stakeId.toNumber is not a function","stack":"TypeError: stakeId.toNumber is not a function\n    at ContractEventService.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:29:30)\n    at Generator.next (<anonymous>)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:4:12)\n    at Proxy.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:26:63)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:617:22\n    at Array.filter (<anonymous>)\n    at _emit (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:611:35)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-03-16T12:50:17.219Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:51:15.931Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:51:15.936Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:51:16.222Z"}
+{"_message":"Transaction validation failed","errors":{"blockNumber":{"kind":"required","message":"Path `blockNumber` is required.","name":"ValidatorError","path":"blockNumber","properties":{"message":"Path `blockNumber` is required.","path":"blockNumber","type":"required"}},"txHash":{"kind":"required","message":"Path `txHash` is required.","name":"ValidatorError","path":"txHash","properties":{"message":"Path `txHash` is required.","path":"txHash","type":"required"}}},"level":"error","message":"Error saving stake event: Transaction validation failed: txHash: Path `txHash` is required., blockNumber: Path `blockNumber` is required.","stack":"ValidationError: Transaction validation failed: txHash: Path `txHash` is required., blockNumber: Path `blockNumber` is required.\n    at model.Document.invalidate (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/mongoose@8.12.1/node_modules/mongoose/lib/document.js:3329:32)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/mongoose@8.12.1/node_modules/mongoose/lib/document.js:3090:17\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/mongoose@8.12.1/node_modules/mongoose/lib/schemaType.js:1407:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-03-16T12:51:23.292Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:52:41.081Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:52:41.084Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:52:41.359Z"}
+{"level":"info","message":"Stake event saved: 0x1fd2faefb819ed5f928f72e5a605a8e93f8d634d9775030453a4719c63f6341f","timestamp":"2025-03-16T12:52:49.436Z"}
+{"level":"info","message":"Stake event saved: 0x83c7615700e2be900634c236350a01c6efaf696c7965bb4ace9a566d25bf0c77","timestamp":"2025-03-16T12:54:57.481Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:57:39.055Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:57:39.059Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:57:39.366Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:57:44.400Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:57:44.403Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:57:44.752Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:57:50.537Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:57:50.540Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:57:50.873Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T12:58:33.026Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T12:58:33.029Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T12:58:33.317Z"}

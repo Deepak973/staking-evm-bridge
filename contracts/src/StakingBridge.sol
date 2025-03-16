@@ -47,11 +47,13 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     address public treasury;
 
     /// @dev Staked event
-    event Staked(address indexed user, address indexed token, uint256 amount, uint256 duration);
+    event Staked(
+        uint256 indexed stakeId, address indexed user, address indexed token, uint256 amount, uint256 duration
+    );
     /// @dev Unstaked event
-    event Unstaked(address indexed user, address indexed token, uint256 amount, bool early);
+    event Unstaked(uint256 indexed stakeId, address indexed user, address indexed token, uint256 amount, bool early);
     /// @dev Claimed rewards event
-    event ClaimedRewards(address indexed user, address indexed token, uint256 amount);
+    event ClaimedRewards(uint256 indexed stakeId, address indexed user, address indexed token, uint256 amount);
     /// @dev Treasury updated event
     event TreasuryUpdated(address indexed newTreasury);
     /// @dev Penalty percentage updated event
@@ -102,7 +104,6 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         bonusPercent = _newPercent;
         emit BonusPercentUpdated(_newPercent);
     }
-   
 
     /// @dev Update treasury address (only owner)
     /// @param _newTreasury The new treasury address
@@ -123,7 +124,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
 
         stakes[msg.sender].push(Stake(msg.sender, _token, _amount, block.timestamp, _duration, false, false, false));
 
-        emit Staked(msg.sender, _token, _amount, durationPeriods[_duration]);
+        emit Staked(stakes[msg.sender].length - 1, msg.sender, _token, _amount, durationPeriods[_duration]);
     }
 
     /// @dev Stake native assets (ETH)
@@ -135,7 +136,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
             Stake(msg.sender, address(0), msg.value, block.timestamp, _duration, false, false, false)
         );
 
-        emit Staked(msg.sender, address(0), msg.value, durationPeriods[_duration]);
+        emit Staked(stakes[msg.sender].length - 1, msg.sender, address(0), msg.value, durationPeriods[_duration]);
     }
 
     /// @dev Unstake tokens (with penalty if early)
@@ -179,14 +180,18 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
             //if staking period is more than 180 days, user can claim rewards
             stakeData.allowedToClaimRewards = true;
         }
-        emit Unstaked(msg.sender, stakeData.token, amount, early);
+        emit Unstaked(stakes[msg.sender].length - 1, msg.sender, stakeData.token, amount, early);
     }
 
     /// @dev Process matured stakes for multiple user
     /// @param users The users addresses
     /// @param stakeIndexes The stake indexes
     /// @notice This function is used to process matured stakes for multiple users automatically
-    function processMaturedStakes(address[] calldata users, uint256[][] calldata stakeIndexes) external onlyOwner nonReentrant {
+    function processMaturedStakes(address[] calldata users, uint256[][] calldata stakeIndexes)
+        external
+        onlyOwner
+        nonReentrant
+    {
         require(users.length == stakeIndexes.length, "Mismatched input lengths");
         for (uint256 u = 0; u < users.length; u++) {
             address user = users[u];
@@ -216,7 +221,7 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
                 }
 
                 stakeData.claimed = true;
-                emit Unstaked(user, stakeData.token, amount, false);
+                emit Unstaked(index, user, stakeData.token, amount, false);
             }
         }
     }
@@ -241,9 +246,8 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         }
         //set rewards claimed to true
         stakeData.rewardsClaimed = true;
-        emit ClaimedRewards(msg.sender, stakeData.token, bonus);
+        emit ClaimedRewards(stakes[msg.sender].length - 1, msg.sender, stakeData.token, bonus);
     }
-
 
     /// @dev Get user stakes
     /// @param _user The user address
@@ -251,7 +255,6 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
     function getUserStakes(address _user) external view returns (Stake[] memory) {
         return stakes[_user];
     }
-
 
     /// @dev Transfer tokens cross chain
     /// @param _destinationChainSelector The destination chain selector
@@ -326,14 +329,18 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         });
     }
 
-
     /// @dev Estimate fee for cross chain
     /// @param _destinationChainSelector The destination chain selector
     /// @param _receiver The receiver address
     /// @param _token The token address
     /// @param _amount The amount of tokens to transfer
     /// @return fee The fee
-    function estimateFeeForCrossChain(uint64 _destinationChainSelector, address _receiver, address _token, uint256 _amount) external view returns (uint256) {
+    function estimateFeeForCrossChain(
+        uint64 _destinationChainSelector,
+        address _receiver,
+        address _token,
+        uint256 _amount
+    ) external view returns (uint256) {
         Client.EVM2AnyMessage memory evm2AnyMessage = _buildCCIPMessage(_receiver, _token, _amount, address(0));
         return s_router.getFee(_destinationChainSelector, evm2AnyMessage);
     }

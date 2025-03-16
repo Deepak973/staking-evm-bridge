@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoutes";
 import { accessLogger } from "./middleware/accessLogger";
 import { csrfProtection } from "./middleware/csrfProtection";
 import cookieParser from "cookie-parser";
+import { ContractEventService } from "./services/contractEventService";
 dotenv.config();
 const app: Application = express();
 
@@ -19,7 +20,7 @@ const app: Application = express();
 // app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:3001", // Use frontend origin
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:3000", // Use frontend origin
     credentials: true, // Allow cookies & auth headers
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
@@ -43,6 +44,9 @@ mongoose
   .connect(process.env.MONGO_URI!)
   .then(() => logger.info("✅ MongoDB Connected"))
   .catch((err) => logger.error("❌ MongoDB Connection Error: ", err));
+
+// Initialize contract event listener
+const contractEventService = new ContractEventService();
 
 // Routes
 app.use("/api/auth", authRoutes);
