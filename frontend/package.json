@@ -15,7 +15,7 @@
     "@wagmi/core": "^2.16.5",
     "@web3modal/wagmi": "^5.1.11",
     "next": "15.2.2",
-    "react": "link:@reown/appkit/react",
+    "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
     "viem": "^2.23.11",

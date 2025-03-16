@@ -1,8 +1,13 @@
 "use client";
 
 import { CrossChainBridge } from "@/app/components/CrossChainBridge";
+import { useAuth } from "../context/AuthContext";
 
 export default function BridgePage() {
+  const { isAuthed } = useAuth();
+  if (!isAuthed) {
+    return <div>Please sign in to bridge</div>;
+  }
   return (
     <div className="py-8 max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

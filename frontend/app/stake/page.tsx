@@ -1,8 +1,13 @@
 "use client";
 
 import { StakeTokens } from "@/app/components/StakeToken";
+import { useAuth } from "../context/AuthContext";
 
 export default function StakePage() {
+  const { isAuthed } = useAuth();
+  if (!isAuthed) {
+    return <div>Please sign in to stake</div>;
+  }
   return (
     <div className="py-8 max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

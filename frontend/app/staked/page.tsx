@@ -12,6 +12,7 @@ import contractABI from "@/app/utils/StakingBridge.json";
 import contractAddress from "@/app/utils/contractAddress.json";
 import { config } from "@/app/config/config";
 import { UnstakeCountdown } from "../components/UnstakeCountdown";
+import { useAuth } from "../context/AuthContext";
 
 function formatDuration(duration: number) {
   switch (duration) {
@@ -32,7 +33,7 @@ type TabType = "active" | "previous" | "rewards";
 
 export default function StakedAssetsPage() {
   const { address, isConnected } = useAccount();
-
+  const { isAuthed, signIn, isLoading: isAuthLoading } = useAuth();
   const { writeContractAsync } = useWriteContract();
   const [stakedAssets, setStakedAssets] = useState<StakedAsset[]>([]);
   const [tokenDetails, setTokenDetails] = useState<{
@@ -43,6 +44,10 @@ export default function StakedAssetsPage() {
     {}
   );
   const [activeTab, setActiveTab] = useState<TabType>("active");
+
+  if (!isAuthed) {
+    return <div>Please sign in to stake</div>;
+  }
 
   useEffect(() => {
     async function loadStakedAssets() {
@@ -170,6 +175,27 @@ export default function StakedAssetsPage() {
           <p className="text-gray-600">
             Please connect your wallet to view staked assets
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthed) {
+    return (
+      <div className="py-8 max-w-7xl mx-auto px-4">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-4">
+            Authentication Required
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Please sign a message to authenticate your wallet
+          </p>
+          <button
+            onClick={signIn}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            Sign Message
+          </button>
         </div>
       </div>
     );

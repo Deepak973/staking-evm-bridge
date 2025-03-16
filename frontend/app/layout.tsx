@@ -6,6 +6,7 @@ import ContextProvider from "@/app/context";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "./context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Staking It",
@@ -24,10 +25,13 @@ export default async function RootLayout({
     <html lang="en">
       <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-right" />
+
         <ContextProvider cookies={cookies}>
-          <Nav />
-          <main className="container mx-auto px-4 flex-grow">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <Nav />
+            <main className="container mx-auto px-4 flex-grow">{children}</main>
+            <Footer />
+          </AuthProvider>
         </ContextProvider>
       </body>
     </html>
