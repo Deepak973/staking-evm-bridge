@@ -265,18 +265,19 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         address _receiver,
         address _token,
         uint256 _amount
-    ) external returns (bytes32 messageId) {
+    ) external payable returns (bytes32 messageId) {
         // address(0) means fees are paid in native gas
         Client.EVM2AnyMessage memory evm2AnyMessage = _buildCCIPMessage(_receiver, _token, _amount, address(0));
 
         // Get the fee required to send the message
         uint256 fees = s_router.getFee(_destinationChainSelector, evm2AnyMessage);
 
-        if (fees > address(this).balance) {
+        if (fees > msg.value) {
             revert("Not enough balance");
         }
 
         // approve the Router to spend tokens on contract's behalf. It will spend the amount of the given token
+        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
         IERC20(_token).approve(address(s_router), _amount);
 
         // Send the message through the router and store the returned message ID

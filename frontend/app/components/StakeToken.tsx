@@ -75,7 +75,7 @@ export function StakeTokens() {
     try {
       const amountInWei = parseEther(amount);
       let receipt;
-
+      let loadingToastId;
       if (isNativeToken) {
         const txHash = await writeContractAsync({
           address: contractAddress.Proxy as `0x${string}`,
@@ -84,7 +84,7 @@ export function StakeTokens() {
           args: [duration],
           value: amountInWei,
         });
-        toast.loading("Staking ETH...");
+        loadingToastId = toast.loading("Staking ETH...");
         receipt = await waitForTransactionReceipt(config as any, {
           hash: txHash,
         });
@@ -99,13 +99,14 @@ export function StakeTokens() {
           functionName: "stakeERC20",
           args: [tokenAddress, amountInToken, duration],
         });
-        toast.loading("Staking tokens...");
+        loadingToastId = toast.loading("Staking tokens...");
         receipt = await waitForTransactionReceipt(config as any, {
           hash: txHash,
         });
       }
 
       if (receipt.status === "success") {
+        toast.dismiss(loadingToastId);
         toast.success("Staking successful!");
         setAmount("");
       } else {
@@ -139,13 +140,14 @@ export function StakeTokens() {
           args: [contractAddress.Proxy as `0x${string}`, amountInToken],
         });
 
-        toast.loading("Approving tokens...");
+        let loadingToastId = toast.loading("Approving tokens...");
         const receipt = await waitForTransactionReceipt(config as any, {
           hash,
         });
 
         if (receipt.status === "success") {
           toast.success("Token approval successful!");
+          toast.dismiss(loadingToastId);
           handleStake();
         } else {
           toast.error("Token approval failed!");
