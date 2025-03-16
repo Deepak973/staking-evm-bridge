@@ -2,7 +2,7 @@ const AUTH_COOKIE_NAME = "auth_token";
 
 const AUTH_MESSAGE = "Sign this message to authenticate.";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "https://staking-evm-bridge-production.up.railway.app";
 
 const getCookie = (name: string): string | null => {
   const cookies = document.cookie.split("; ");
