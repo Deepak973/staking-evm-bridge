@@ -402,3 +402,12 @@
 {"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T18:36:40.825Z"}
 {"duration":"3ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T18:36:46.186Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
 {"duration":"176ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:36:46.365Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T19:21:20.701Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T19:21:20.711Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T19:21:21.110Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T19:21:28.601Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T19:21:28.604Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T19:21:28.927Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T19:21:31.157Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T19:21:31.160Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T19:21:31.508Z"}
