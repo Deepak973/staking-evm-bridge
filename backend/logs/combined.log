@@ -348,3 +348,32 @@
 {"duration":"62ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T17:49:35.487Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
 {"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:56:16.168Z"}
 {"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:56:16.172Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T18:04:34.088Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T18:04:34.093Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T18:04:34.415Z"}
+{"duration":"13ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T18:04:42.329Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T18:04:42.336Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"13ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:04:42.351Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"9ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:04:42.368Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T18:04:48.406Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"124ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:04:48.532Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"81ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:04:49.703Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T18:05:27.268Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T18:05:27.271Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T18:05:27.609Z"}
+{"duration":"7ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T18:05:31.229Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"0ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T18:05:31.232Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"13ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:05:31.245Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"3ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:05:31.252Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T18:05:38.556Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"115ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:05:38.672Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"119ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T18:05:40.409Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T18:06:30.679Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T18:06:30.682Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T18:06:31.042Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T18:06:38.133Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T18:06:38.144Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T18:06:38.495Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T18:08:47.117Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T18:08:47.120Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T18:08:47.442Z"}
