@@ -13,14 +13,11 @@ import { ContractEventService } from "./services/contractEventService";
 dotenv.config();
 const app: Application = express();
 
-// Add this line before other middleware
-app.set("trust proxy", 1);
-
 // Add access logging before other middleware
 app.use(accessLogger);
 
 // Security Middlewares
-// app.use(helmet());
+app.use(helmet());
 app.use(
   cors({
     origin: process.env.NEXT_PUBLIC_CLIENT_ORIGIN || "http://localhost:3000", // Use frontend origin

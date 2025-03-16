@@ -267,3 +267,60 @@
 {"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T14:49:10.513Z"}
 {"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T14:49:10.516Z"}
 {"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T14:49:10.773Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:34:51.804Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:34:51.817Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:34:52.162Z"}
+{"duration":"2ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T17:35:19.217Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"19ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T17:35:19.238Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T17:36:06.263Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"154ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T17:36:06.419Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"_message":"Transaction validation failed","errors":{"stakeId":{"kind":"required","message":"Path `stakeId` is required.","name":"ValidatorError","path":"stakeId","properties":{"message":"Path `stakeId` is required.","path":"stakeId","type":"required"}}},"level":"error","message":"Error saving cross chain transfer event: Transaction validation failed: stakeId: Path `stakeId` is required.","stack":"ValidationError: Transaction validation failed: stakeId: Path `stakeId` is required.\n    at model.Document.invalidate (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/mongoose@8.12.1/node_modules/mongoose/lib/document.js:3329:32)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/mongoose@8.12.1/node_modules/mongoose/lib/document.js:3090:17\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/mongoose@8.12.1/node_modules/mongoose/lib/schemaType.js:1407:9\n    at processTicksAndRejections (node:internal/process/task_queues:77:11)","timestamp":"2025-03-16T17:36:55.095Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:40:42.508Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:40:42.517Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:40:44.077Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:40:44.080Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:40:44.422Z"}
+{"level":"error","message":"Error saving cross chain transfer event: Cannot read properties of undefined (reading 'toLowerCase')","stack":"TypeError: Cannot read properties of undefined (reading 'toLowerCase')\n    at ContractEventService.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:112:28)\n    at Generator.next (<anonymous>)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:4:12)\n    at Proxy.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:108:11)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:617:22\n    at Array.filter (<anonymous>)\n    at _emit (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:611:35)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-03-16T17:41:13.178Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:42:18.523Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:42:18.527Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:42:18.883Z"}
+{"level":"error","message":"Error saving cross chain transfer event: Missing required parameters in event","stack":"Error: Missing required parameters in event\n    at ContractEventService.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:111:19)\n    at Generator.next (<anonymous>)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:4:12)\n    at Proxy.<anonymous> (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/services/contractEventService.ts:108:11)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:617:22\n    at Array.filter (<anonymous>)\n    at _emit (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/ethers@6.13.5/node_modules/ethers/src.ts/contract/contract.ts:611:35)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-03-16T17:42:39.207Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:43:22.283Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:43:22.286Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:43:22.621Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:43:40.548Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:43:40.551Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:43:41.266Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:44:40.792Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:44:40.796Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:44:41.118Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:44:44.508Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:44:44.511Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:44:44.854Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:44:59.756Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:44:59.760Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:45:00.098Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:45:21.771Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:45:21.775Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:45:22.103Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:45:28.169Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:45:28.172Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:45:28.541Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:45:31.417Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:45:31.420Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:45:31.754Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:45:40.538Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:45:40.541Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:45:43.894Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:46:30.251Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:46:30.255Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T17:46:30.594Z"}
+{"duration":"3ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T17:49:21.142Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"0ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T17:49:21.148Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"30ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T17:49:21.181Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T17:49:21.185Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"0ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-16T17:49:33.703Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"113ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T17:49:33.818Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"62ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-16T17:49:35.487Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T17:56:16.168Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T17:56:16.172Z"}
