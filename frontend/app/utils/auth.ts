@@ -4,12 +4,9 @@ const AUTH_MESSAGE = "Sign this message to authenticate.";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export const isAuthenticated = (): boolean => {
-  return !!getCookie(AUTH_COOKIE_NAME);
-};
-
 const getCookie = (name: string): string | null => {
   const cookies = document.cookie.split("; ");
+  console.log("cookies", cookies);
   for (let cookie of cookies) {
     const [cookieName, cookieValue] = cookie.split("=");
     if (cookieName === name) {
@@ -40,9 +37,15 @@ export const verifySignature = async (address: string, signature: string) => {
 };
 
 export const signOutUser = async () => {
+  const csrfToken = getCookie("csrf_token_client");
+  console.log("csrfToken", csrfToken);
   const response = await fetch(`${API_URL}/api/auth/signout`, {
     method: "POST",
     credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      "x-csrf-token": csrfToken || "",
+    },
   });
   if (!response.ok) throw new Error("Failed to sign out");
   const data = await response.json();

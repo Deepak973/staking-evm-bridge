@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
-import { toast } from "react-hot-toast";
 import { verifySignature, getAuthMessage, signOutUser } from "../utils/auth";
 import { useAccountEffect } from "wagmi";
 
@@ -35,9 +34,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     },
   });
   const checkAuthCookie = () => {
+    console.log("checking auth cookie");
+    console.log(document.cookie);
     return document.cookie
       .split("; ")
-      .some((cookie) => cookie.startsWith("auth_token="));
+      .some((cookie) => cookie.startsWith("auth_token_client="));
   };
 
   const signIn = async () => {
@@ -79,6 +80,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (checkAuthCookie()) {
+      console.log("checking auth cookie");
+      setIsLoading(false);
       setIsAuthed(true);
     } else {
       console.log("signing in");

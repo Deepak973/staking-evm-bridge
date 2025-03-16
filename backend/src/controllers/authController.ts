@@ -5,6 +5,7 @@ import {
   generateToken,
   getAuthMessage,
   generateNonce,
+  generateCsrfToken,
 } from "../utils/auth";
 import logger from "../utils/logger";
 
@@ -38,10 +39,31 @@ export const verifyAuth = async (
 
     // Generate JWT
     const token = generateToken(user._id.toString(), user.walletAddress);
+    const csrfToken = generateCsrfToken();
 
-    // Set HTTP-only cookie with JWT
+    // Set HTTP-only cookies
     res.cookie("auth_token", token, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
+
+    res.cookie("csrf_token_client", csrfToken, {
+      httpOnly: false, //  Accessible in frontend
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
+
+    res.cookie("csrf_token", csrfToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
+    res.cookie("auth_token_client", token, {
+      httpOnly: false, //  Frontend can read it
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
@@ -66,6 +88,10 @@ export const signOutUser = async (
 ): Promise<void> => {
   try {
     res.clearCookie("auth_token");
+    res.clearCookie("auth_token_client");
+    res.clearCookie("csrf_token");
+    res.clearCookie("csrf_token_client");
+
     res.json({ success: true });
   } catch (error) {
     logger.error("signOutUser error:", error);

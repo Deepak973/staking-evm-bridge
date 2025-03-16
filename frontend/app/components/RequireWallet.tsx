@@ -7,6 +7,10 @@ export function RequireWallet({ children }: { children: React.ReactNode }) {
   const { isConnected } = useAccount();
   const { isAuthed, signIn, isLoading } = useAuth();
 
+  console.log("isAuthed", isAuthed);
+  console.log("isLoading", isLoading);
+  console.log("isConnected", isConnected);
+
   if (!isConnected) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-8rem)]">

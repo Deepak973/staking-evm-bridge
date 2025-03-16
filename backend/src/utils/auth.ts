@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import jwt from "jsonwebtoken";
 import { Request } from "express";
 import logger from "./logger";
+import crypto from "crypto";
 
 export const verifySignature = (
   message: string,
@@ -36,4 +37,8 @@ export const generateNonce = (): string => {
 
 export const getAuthMessage = (): string => {
   return `Sign this message to authenticate.`;
+};
+
+export const generateCsrfToken = (): string => {
+  return crypto.randomBytes(32).toString("hex");
 };
