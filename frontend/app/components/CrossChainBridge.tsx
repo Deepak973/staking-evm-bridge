@@ -344,7 +344,7 @@ export function CrossChainBridge() {
           <p className="text-sm font-medium text-gray-700">Transaction Hash:</p>
           <div className="flex items-center gap-2">
             <a
-              href={`https://sepolia.basescan.org/tx/${lastTxHash}`}
+              href={`https://ccip.chain.link/tx/${lastTxHash}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-blue-600 hover:text-blue-800 truncate"
