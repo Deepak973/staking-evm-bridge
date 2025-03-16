@@ -32,6 +32,37 @@ function formatDuration(duration: number) {
 
 type TabType = "active" | "previous" | "rewards";
 
+// Add these helper functions
+const calculateRewardsInfo = (startTime: bigint, duration: number) => {
+  const SECONDS_IN_DAY = 86400;
+  const REWARDS_THRESHOLD = 180 * SECONDS_IN_DAY; // 180 days in seconds
+  const now = Math.floor(Date.now() / 1000);
+  const stakeStart = Number(startTime);
+  const timeStaked = now - stakeStart;
+  const daysStaked = Math.floor(timeStaked / SECONDS_IN_DAY);
+
+  const durationMap = {
+    0: 30, // 1 month
+    1: 180, // 6 months
+    2: 365, // 1 year
+    3: 730, // 2 years
+  };
+
+  const totalDays = durationMap[duration as keyof typeof durationMap];
+  const isLongTermStake = totalDays >= 180; // Check if stake duration is 6 months or more
+  const daysUntilRewards = isLongTermStake ? Math.max(180 - daysStaked, 0) : 0;
+  const isEligibleForRewards = timeStaked >= REWARDS_THRESHOLD;
+
+  return {
+    daysStaked,
+    daysUntilRewards,
+    isEligibleForRewards,
+    totalDays,
+    progress: (daysStaked / totalDays) * 100,
+    isLongTermStake,
+  };
+};
+
 export default function StakedAssetsPage() {
   const { address, isConnected } = useAccount();
   const { isAuthed, signIn, isLoading: isAuthLoading } = useAuth();
@@ -87,6 +118,15 @@ export default function StakedAssetsPage() {
   const handleUnstake = async (index: number) => {
     if (!isConnected) {
       toast.error("Please connect your wallet first");
+      return;
+    }
+
+    // Show warning modal/toast before unstaking
+    if (
+      !window.confirm(
+        "Early unstaking will incur a 10% penalty fee and you will forfeit any unclaimed rewards. Do you wish to continue?"
+      )
+    ) {
       return;
     }
 
@@ -171,8 +211,34 @@ export default function StakedAssetsPage() {
 
   return (
     <RequireWallet>
-      <div className="py-8 max-w-7xl mx-auto px-4">
-        <h1 className="mb-8 text-3xl font-bold">Staked Assets</h1>
+      <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Staked Assets</h1>
+            <p className="mt-1 text-gray-500">
+              Manage your staked assets and rewards
+            </p>
+          </div>
+          <div className="flex gap-4">
+            {/* Summary Cards */}
+            <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
+              <p className="text-sm text-blue-600">Active Stakes</p>
+              <p className="text-2xl font-bold text-blue-700">
+                {stakedAssets.filter((s) => !s.claimed).length}
+              </p>
+            </div>
+            <div className="bg-green-50 rounded-xl p-4 border border-green-100">
+              <p className="text-sm text-green-600">Available Rewards</p>
+              <p className="text-2xl font-bold text-green-700">
+                {
+                  stakedAssets.filter(
+                    (s) => s.allowedToClaimRewards && !s.rewardsClaimed
+                  ).length
+                }
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Enhanced Tabs Design */}
         <div className="mb-8">
@@ -267,7 +333,7 @@ export default function StakedAssetsPage() {
         </div>
 
         {/* Content Section with Shadow */}
-        <div className="bg-white rounded-lg shadow-sm">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100">
           {filteredStakes.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-gray-400 text-5xl mb-4">
@@ -294,87 +360,138 @@ export default function StakedAssetsPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 p-6">
-              {filteredStakes.map((stake, index) => (
-                <div
-                  key={index}
-                  className="bg-white shadow-lg rounded-lg p-6 space-y-3"
-                >
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-semibold">
-                        {stake.token ===
-                        "0x0000000000000000000000000000000000000000"
-                          ? "ETH"
-                          : tokenDetails[stake.token]?.symbol || "Loading..."}
-                      </h3>
-                      <p className="text-gray-600">
-                        Amount:{" "}
-                        {stake.token ===
-                        "0x0000000000000000000000000000000000000000"
-                          ? formatEther(stake.amount)
-                          : formatUnits(
-                              stake.amount,
-                              Number(tokenDetails[stake.token]?.decimals || 18)
-                            )}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm text-gray-500">
-                        Duration: {formatDuration(stake.duration)}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Start Date:{" "}
-                        {new Date(
-                          Number(stake.startTime) * 1000
-                        ).toLocaleDateString()}
-                      </p>
-                      {!stake.claimed && (
-                        <UnstakeCountdown
-                          startTime={stake.startTime}
-                          duration={stake.duration}
-                        />
-                      )}
-                    </div>
-                  </div>
+              {filteredStakes.map((stake, index) => {
+                const rewardsInfo = calculateRewardsInfo(
+                  stake.startTime,
+                  stake.duration
+                );
 
-                  <div className="flex justify-between items-center">
-                    <div className="flex gap-2">
-                      {stake.claimed ? (
-                        <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
-                          Unstaked
-                        </span>
-                      ) : (
-                        <>
-                          <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">
-                            Staked
-                          </span>
+                return (
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl border border-gray-200 overflow-hidden transition-all hover:shadow-md"
+                  >
+                    <div className="p-6">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-xl font-semibold">
+                              {stake.token ===
+                              "0x0000000000000000000000000000000000000000"
+                                ? "ETH"
+                                : tokenDetails[stake.token]?.symbol ||
+                                  "Loading..."}
+                            </h3>
+                            {!stake.claimed && (
+                              <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                                Active
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-gray-600">
+                            {stake.token ===
+                            "0x0000000000000000000000000000000000000000"
+                              ? formatEther(stake.amount)
+                              : formatUnits(
+                                  stake.amount,
+                                  Number(
+                                    tokenDetails[stake.token]?.decimals || 18
+                                  )
+                                )}{" "}
+                            {stake.token ===
+                            "0x0000000000000000000000000000000000000000"
+                              ? "ETH"
+                              : tokenDetails[stake.token]?.symbol}
+                          </p>
+                        </div>
+
+                        <div className="text-right">
+                          <p className="text-sm text-gray-600 mb-1">
+                            Duration: {formatDuration(stake.duration)}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            Started:{" "}
+                            {new Date(
+                              Number(stake.startTime) * 1000
+                            ).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="mb-4">
+                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-blue-500 transition-all duration-500"
+                            style={{
+                              width: `${Math.min(rewardsInfo.progress, 100)}%`,
+                            }}
+                          />
+                        </div>
+                        <div className="flex justify-between text-sm text-gray-500 mt-1">
+                          <span>{rewardsInfo.daysStaked} days staked</span>
+                          <span>{rewardsInfo.totalDays} days total</span>
+                        </div>
+                      </div>
+
+                      {/* Rewards Info */}
+                      {!stake.claimed && (
+                        <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-yellow-500">🏆</span>
+                            <h4 className="font-medium">Rewards Status</h4>
+                          </div>
+                          {rewardsInfo.isLongTermStake ? (
+                            rewardsInfo.isEligibleForRewards ? (
+                              <p className="text-green-600">
+                                Eligible for rewards! You can claim your rewards
+                                now.
+                              </p>
+                            ) : (
+                              <p className="text-gray-600">
+                                {rewardsInfo.daysUntilRewards} days until
+                                rewards eligibility
+                              </p>
+                            )
+                          ) : (
+                            <p className="text-gray-500">
+                              Not eligible for bonus rewards as staking period
+                              is less than 6 months
+                            </p>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Action Buttons */}
+                      <div className="flex gap-3">
+                        {!stake.claimed && (
                           <button
                             onClick={() => handleUnstake(index)}
                             disabled={isUnstaking[index]}
-                            className="px-4 py-1 bg-red-500 text-white rounded-full text-sm hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                            className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors group relative"
                           >
                             {isUnstaking[index] ? "Unstaking..." : "Unstake"}
+                            {/* Tooltip */}
+                            <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                              10% penalty fee applies for early unstaking
+                            </span>
                           </button>
-                        </>
-                      )}
-                      {stake.allowedToClaimRewards && !stake.rewardsClaimed && (
-                        <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">
-                          Rewards Available
-                        </span>
-                      )}
+                        )}
 
-                      {activeTab === "rewards" && (
-                        <button
-                          onClick={() => handleClaimRewards(index)}
-                          className="px-4 py-1 bg-green-500 text-white rounded-full text-sm hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                        >
-                          Claim Rewards
-                        </button>
-                      )}
+                        {stake.allowedToClaimRewards &&
+                          !stake.rewardsClaimed && (
+                            <button
+                              onClick={() => handleClaimRewards(index)}
+                              className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                            >
+                              Claim Rewards
+                            </button>
+                          )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

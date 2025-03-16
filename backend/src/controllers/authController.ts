@@ -9,15 +9,6 @@ import {
 } from "../utils/auth";
 import logger from "../utils/logger";
 
-const getCookieConfig = (httpOnly: boolean) => ({
-  httpOnly,
-  secure: true,
-  sameSite: "none" as const,
-  maxAge: 2 * 60 * 60 * 1000, // 2 hours
-  domain: ".staking-evm-bridge.vercel.app",
-  path: "/",
-});
-
 export const verifyAuth = async (
   req: Request,
   res: Response
@@ -54,10 +45,32 @@ export const verifyAuth = async (
     const csrfToken = generateCsrfToken();
 
     // Set HTTP-only cookies
-    res.cookie("auth_token", token, getCookieConfig(true));
-    res.cookie("csrf_token_client", csrfToken, getCookieConfig(false));
-    res.cookie("csrf_token", csrfToken, getCookieConfig(true));
-    res.cookie("auth_token_client", token, getCookieConfig(false));
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
+
+    res.cookie("csrf_token_client", csrfToken, {
+      httpOnly: false, //  Accessible in frontend
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
+
+    res.cookie("csrf_token", csrfToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
+    res.cookie("auth_token_client", token, {
+      httpOnly: false, //  Frontend can read it
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
+    });
 
     res.json({
       success: true,
@@ -77,11 +90,10 @@ export const signOutUser = async (
   res: Response
 ): Promise<void> => {
   try {
-    const cookieConfig = getCookieConfig(true);
-    res.clearCookie("auth_token", cookieConfig);
-    res.clearCookie("auth_token_client", cookieConfig);
-    res.clearCookie("csrf_token", cookieConfig);
-    res.clearCookie("csrf_token_client", cookieConfig);
+    res.clearCookie("auth_token");
+    res.clearCookie("auth_token_client");
+    res.clearCookie("csrf_token");
+    res.clearCookie("csrf_token_client");
 
     res.json({ success: true });
   } catch (error) {

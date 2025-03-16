@@ -237,6 +237,52 @@ export function CrossChainBridge() {
 
   return (
     <div className="space-y-6">
+      {/* Add Faucet Info Box */}
+      <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <h3 className="text-lg font-medium text-blue-800 mb-2">
+          🚰 Need Test USDC?
+        </h3>
+        <p className="text-sm text-blue-600 mb-3">
+          Get test tokens for cross-chain transfers:
+        </p>
+        <div className="space-y-2">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <a
+              href="https://faucet.circle.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors inline-flex items-center gap-2"
+            >
+              <span>Get Base Sepolia USDC</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </a>
+          </div>
+          <p className="text-xs text-gray-500 mt-2">
+            USDC Contract: {USDC_ADDRESS}{" "}
+            <button
+              onClick={() => navigator.clipboard.writeText(USDC_ADDRESS)}
+              className="text-blue-600 hover:text-blue-800"
+              title="Copy address"
+            >
+              📋
+            </button>
+          </p>
+        </div>
+      </div>
+
       {/* Show USDC Balance */}
       {tokenDetails && (
         <div className="p-3 bg-gray-50 rounded-md">
@@ -298,7 +344,12 @@ export function CrossChainBridge() {
         <input
           type="text"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (/^\d*\.?\d*$/.test(value) && Number(value) >= 0) {
+              setAmount(value);
+            }
+          }}
           placeholder="Enter USDC amount"
           className="w-full p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"
         />

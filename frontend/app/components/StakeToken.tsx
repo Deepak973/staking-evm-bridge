@@ -274,7 +274,12 @@ export function StakeTokens() {
         <input
           type="text"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (/^\d*\.?\d*$/.test(value) && Number(value) >= 0) {
+              setAmount(value);
+            }
+          }}
           placeholder={`Enter amount in ${
             isNativeToken ? "ETH" : tokenDetails?.symbol || "tokens"
           }`}
