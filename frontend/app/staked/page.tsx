@@ -13,6 +13,7 @@ import contractAddress from "@/app/utils/contractAddress.json";
 import { config } from "@/app/config/config";
 import { UnstakeCountdown } from "../components/UnstakeCountdown";
 import { useAuth } from "../context/AuthContext";
+import { RequireWallet } from "../components/RequireWallet";
 
 function formatDuration(duration: number) {
   switch (duration) {
@@ -45,9 +46,9 @@ export default function StakedAssetsPage() {
   );
   const [activeTab, setActiveTab] = useState<TabType>("active");
 
-  if (!isAuthed) {
-    return <div>Please sign in to stake</div>;
-  }
+  // if (!isAuthed) {
+  //   return <div>Please sign in to stake</div>;
+  // }
 
   useEffect(() => {
     async function loadStakedAssets() {
@@ -168,257 +169,216 @@ export default function StakedAssetsPage() {
     }
   });
 
-  if (!isConnected) {
-    return (
-      <div className="py-8 max-w-7xl mx-auto px-4">
-        <div className="text-center">
-          <p className="text-gray-600">
-            Please connect your wallet to view staked assets
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isAuthed) {
-    return (
-      <div className="py-8 max-w-7xl mx-auto px-4">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-4">
-            Authentication Required
-          </h2>
-          <p className="text-gray-600 mb-4">
-            Please sign a message to authenticate your wallet
-          </p>
-          <button
-            onClick={signIn}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-          >
-            Sign Message
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="py-8 max-w-7xl mx-auto px-4">
-        <div className="text-center">
-          <p className="text-gray-600">Loading staked assets...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="py-8 max-w-7xl mx-auto px-4">
-      <h1 className="mb-8 text-3xl font-bold">Staked Assets</h1>
+    <RequireWallet>
+      <div className="py-8 max-w-7xl mx-auto px-4">
+        <h1 className="mb-8 text-3xl font-bold">Staked Assets</h1>
 
-      {/* Enhanced Tabs Design */}
-      <div className="mb-8">
-        <div className="sm:hidden">
-          {/* Mobile Tab Selector */}
-          <select
-            value={activeTab}
-            onChange={(e) => setActiveTab(e.target.value as TabType)}
-            className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-          >
-            <option value="active">Active Stakes</option>
-            <option value="previous">Previous Stakes</option>
-            <option value="rewards">Claim Rewards</option>
-          </select>
-        </div>
-
-        {/* Desktop Tabs */}
-        <div className="hidden sm:block">
-          <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-              <button
-                onClick={() => setActiveTab("active")}
-                className={`
-                  whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
-                  ${
-                    activeTab === "active"
-                      ? "border-blue-500 text-blue-600"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }
-                  transition-colors duration-200
-                `}
-              >
-                <div className="flex items-center">
-                  <span className="mr-2">🔵</span>
-                  Active Stakes
-                  {filteredStakes.length > 0 && activeTab === "active" && (
-                    <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2.5 rounded-full text-xs">
-                      {filteredStakes.length}
-                    </span>
-                  )}
-                </div>
-              </button>
-
-              <button
-                onClick={() => setActiveTab("previous")}
-                className={`
-                  whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
-                  ${
-                    activeTab === "previous"
-                      ? "border-blue-500 text-blue-600"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }
-                  transition-colors duration-200
-                `}
-              >
-                <div className="flex items-center">
-                  <span className="mr-2">📜</span>
-                  Previous Stakes
-                  {filteredStakes.length > 0 && activeTab === "previous" && (
-                    <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2.5 rounded-full text-xs">
-                      {filteredStakes.length}
-                    </span>
-                  )}
-                </div>
-              </button>
-
-              <button
-                onClick={() => setActiveTab("rewards")}
-                className={`
-                  whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
-                  ${
-                    activeTab === "rewards"
-                      ? "border-blue-500 text-blue-600"
-                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }
-                  transition-colors duration-200
-                `}
-              >
-                <div className="flex items-center">
-                  <span className="mr-2">🎁</span>
-                  Claim Rewards
-                  {filteredStakes.length > 0 && activeTab === "rewards" && (
-                    <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2.5 rounded-full text-xs">
-                      {filteredStakes.length}
-                    </span>
-                  )}
-                </div>
-              </button>
-            </nav>
+        {/* Enhanced Tabs Design */}
+        <div className="mb-8">
+          <div className="sm:hidden">
+            {/* Mobile Tab Selector */}
+            <select
+              value={activeTab}
+              onChange={(e) => setActiveTab(e.target.value as TabType)}
+              className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+            >
+              <option value="active">Active Stakes</option>
+              <option value="previous">Previous Stakes</option>
+              <option value="rewards">Claim Rewards</option>
+            </select>
           </div>
-        </div>
-      </div>
 
-      {/* Content Section with Shadow */}
-      <div className="bg-white rounded-lg shadow-sm">
-        {filteredStakes.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-gray-400 text-5xl mb-4">
-              {activeTab === "active"
-                ? "🔍"
-                : activeTab === "previous"
-                ? "📭"
-                : "🎁"}
+          {/* Desktop Tabs */}
+          <div className="hidden sm:block">
+            <div className="border-b border-gray-200">
+              <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                <button
+                  onClick={() => setActiveTab("active")}
+                  className={`
+                    whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
+                    ${
+                      activeTab === "active"
+                        ? "border-blue-500 text-blue-600"
+                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    }
+                    transition-colors duration-200
+                  `}
+                >
+                  <div className="flex items-center">
+                    <span className="mr-2">🔵</span>
+                    Active Stakes
+                    {filteredStakes.length > 0 && activeTab === "active" && (
+                      <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2.5 rounded-full text-xs">
+                        {filteredStakes.length}
+                      </span>
+                    )}
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("previous")}
+                  className={`
+                    whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
+                    ${
+                      activeTab === "previous"
+                        ? "border-blue-500 text-blue-600"
+                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    }
+                    transition-colors duration-200
+                  `}
+                >
+                  <div className="flex items-center">
+                    <span className="mr-2">📜</span>
+                    Previous Stakes
+                    {filteredStakes.length > 0 && activeTab === "previous" && (
+                      <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2.5 rounded-full text-xs">
+                        {filteredStakes.length}
+                      </span>
+                    )}
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("rewards")}
+                  className={`
+                    whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
+                    ${
+                      activeTab === "rewards"
+                        ? "border-blue-500 text-blue-600"
+                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    }
+                    transition-colors duration-200
+                  `}
+                >
+                  <div className="flex items-center">
+                    <span className="mr-2">🎁</span>
+                    Claim Rewards
+                    {filteredStakes.length > 0 && activeTab === "rewards" && (
+                      <span className="ml-2 bg-blue-100 text-blue-600 py-0.5 px-2.5 rounded-full text-xs">
+                        {filteredStakes.length}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              </nav>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              {activeTab === "active"
-                ? "No Active Stakes"
-                : activeTab === "previous"
-                ? "No Previous Stakes"
-                : "No Rewards Available"}
-            </h3>
-            <p className="text-gray-500">
-              {activeTab === "active"
-                ? "You don't have any active stakes at the moment"
-                : activeTab === "previous"
-                ? "You haven't completed any stakes yet"
-                : "You don't have any rewards to claim at this moment"}
-            </p>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 p-6">
-            {filteredStakes.map((stake, index) => (
-              <div
-                key={index}
-                className="bg-white shadow-lg rounded-lg p-6 space-y-3"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-lg font-semibold">
-                      {stake.token ===
-                      "0x0000000000000000000000000000000000000000"
-                        ? "ETH"
-                        : tokenDetails[stake.token]?.symbol || "Loading..."}
-                    </h3>
-                    <p className="text-gray-600">
-                      Amount:{" "}
-                      {stake.token ===
-                      "0x0000000000000000000000000000000000000000"
-                        ? formatEther(stake.amount)
-                        : formatUnits(
-                            stake.amount,
-                            Number(tokenDetails[stake.token]?.decimals || 18)
-                          )}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-gray-500">
-                      Duration: {formatDuration(stake.duration)}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Start Date:{" "}
-                      {new Date(
-                        Number(stake.startTime) * 1000
-                      ).toLocaleDateString()}
-                    </p>
-                    {!stake.claimed && (
-                      <UnstakeCountdown
-                        startTime={stake.startTime}
-                        duration={stake.duration}
-                      />
-                    )}
-                  </div>
-                </div>
+        </div>
 
-                <div className="flex justify-between items-center">
-                  <div className="flex gap-2">
-                    {stake.claimed ? (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
-                        Unstaked
-                      </span>
-                    ) : (
-                      <>
-                        <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">
-                          Staked
-                        </span>
-                        <button
-                          onClick={() => handleUnstake(index)}
-                          disabled={isUnstaking[index]}
-                          className="px-4 py-1 bg-red-500 text-white rounded-full text-sm hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                        >
-                          {isUnstaking[index] ? "Unstaking..." : "Unstake"}
-                        </button>
-                      </>
-                    )}
-                    {stake.allowedToClaimRewards && !stake.rewardsClaimed && (
-                      <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">
-                        Rewards Available
-                      </span>
-                    )}
-
-                    {activeTab === "rewards" && (
-                      <button
-                        onClick={() => handleClaimRewards(index)}
-                        className="px-4 py-1 bg-green-500 text-white rounded-full text-sm hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                      >
-                        Claim Rewards
-                      </button>
-                    )}
-                  </div>
-                </div>
+        {/* Content Section with Shadow */}
+        <div className="bg-white rounded-lg shadow-sm">
+          {filteredStakes.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-gray-400 text-5xl mb-4">
+                {activeTab === "active"
+                  ? "🔍"
+                  : activeTab === "previous"
+                  ? "📭"
+                  : "🎁"}
               </div>
-            ))}
-          </div>
-        )}
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                {activeTab === "active"
+                  ? "No Active Stakes"
+                  : activeTab === "previous"
+                  ? "No Previous Stakes"
+                  : "No Rewards Available"}
+              </h3>
+              <p className="text-gray-500">
+                {activeTab === "active"
+                  ? "You don't have any active stakes at the moment"
+                  : activeTab === "previous"
+                  ? "You haven't completed any stakes yet"
+                  : "You don't have any rewards to claim at this moment"}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 p-6">
+              {filteredStakes.map((stake, index) => (
+                <div
+                  key={index}
+                  className="bg-white shadow-lg rounded-lg p-6 space-y-3"
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        {stake.token ===
+                        "0x0000000000000000000000000000000000000000"
+                          ? "ETH"
+                          : tokenDetails[stake.token]?.symbol || "Loading..."}
+                      </h3>
+                      <p className="text-gray-600">
+                        Amount:{" "}
+                        {stake.token ===
+                        "0x0000000000000000000000000000000000000000"
+                          ? formatEther(stake.amount)
+                          : formatUnits(
+                              stake.amount,
+                              Number(tokenDetails[stake.token]?.decimals || 18)
+                            )}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-gray-500">
+                        Duration: {formatDuration(stake.duration)}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Start Date:{" "}
+                        {new Date(
+                          Number(stake.startTime) * 1000
+                        ).toLocaleDateString()}
+                      </p>
+                      {!stake.claimed && (
+                        <UnstakeCountdown
+                          startTime={stake.startTime}
+                          duration={stake.duration}
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <div className="flex gap-2">
+                      {stake.claimed ? (
+                        <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+                          Unstaked
+                        </span>
+                      ) : (
+                        <>
+                          <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">
+                            Staked
+                          </span>
+                          <button
+                            onClick={() => handleUnstake(index)}
+                            disabled={isUnstaking[index]}
+                            className="px-4 py-1 bg-red-500 text-white rounded-full text-sm hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                          >
+                            {isUnstaking[index] ? "Unstaking..." : "Unstake"}
+                          </button>
+                        </>
+                      )}
+                      {stake.allowedToClaimRewards && !stake.rewardsClaimed && (
+                        <span className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">
+                          Rewards Available
+                        </span>
+                      )}
+
+                      {activeTab === "rewards" && (
+                        <button
+                          onClick={() => handleClaimRewards(index)}
+                          className="px-4 py-1 bg-green-500 text-white rounded-full text-sm hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                        >
+                          Claim Rewards
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </RequireWallet>
   );
 }

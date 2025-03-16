@@ -3,18 +3,21 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useAccount, useSignMessage } from "wagmi";
 import { toast } from "react-hot-toast";
-import { verifySignature, getAuthMessage } from "../utils/auth";
+import { verifySignature, getAuthMessage, signOutUser } from "../utils/auth";
+import { useAccountEffect } from "wagmi";
 
 interface AuthContextType {
   isAuthed: boolean;
   signIn: () => Promise<void>;
   isLoading: boolean;
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   isAuthed: false,
   signIn: async () => {},
   isLoading: false,
+  signOut: async () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -25,6 +28,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthed, setIsAuthed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  useAccountEffect({
+    onDisconnect: () => {
+      signOut();
+      console.log("disconnected");
+    },
+  });
   const checkAuthCookie = () => {
     return document.cookie
       .split("; ")
@@ -32,48 +41,53 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signIn = async () => {
+    console.log("signing in kasdln");
     if (!address || !isConnected) {
-      toast.error("Please connect your wallet first");
       return;
     }
 
     try {
       setIsLoading(true);
-      // Get nonce from backend
 
+      console.log("signing in message");
       // Sign the message
       const signature = await signMessageAsync({
         message: getAuthMessage(),
       });
 
+      console.log("signature", signature);
       // Verify signature and create session
       const response = await verifySignature(address, signature);
-
-      if (response.csrfToken) {
-        // setCsrfToken(response.csrfToken);
+      console.log("response", response);
+      if (response.success) {
+        setIsAuthed(true);
+      } else {
+        setIsAuthed(false);
       }
-
-      setIsAuthed(true);
-      toast.success("Successfully authenticated!");
     } catch (error) {
       console.error("Error signing message:", error);
-      toast.error("Failed to authenticate");
       setIsAuthed(false);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const signOut = async () => {
+    await signOutUser();
+    setIsAuthed(false);
+  };
+
   useEffect(() => {
     if (checkAuthCookie()) {
       setIsAuthed(true);
     } else {
+      console.log("signing in");
       signIn();
     }
   }, [isConnected]);
 
   return (
-    <AuthContext.Provider value={{ isAuthed, signIn, isLoading }}>
+    <AuthContext.Provider value={{ isAuthed, signIn, signOut, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

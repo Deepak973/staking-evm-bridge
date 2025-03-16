@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-
 import { headers } from "next/headers"; // added
 import "./globals.css";
 import ContextProvider from "@/app/context";
@@ -29,7 +28,9 @@ export default async function RootLayout({
         <ContextProvider cookies={cookies}>
           <AuthProvider>
             <Nav />
+
             <main className="container mx-auto px-4 flex-grow">{children}</main>
+
             <Footer />
           </AuthProvider>
         </ContextProvider>

@@ -25,7 +25,7 @@ export const generateToken = (
     { id: userId, walletAddress },
     process.env.JWT_SECRET as string,
     {
-      expiresIn: "7d",
+      expiresIn: "6900s", // 1 hr 55 min
     }
   );
 };
@@ -34,6 +34,6 @@ export const generateNonce = (): string => {
   return Math.floor(Math.random() * 1000000).toString();
 };
 
-export const getAuthMessage = (nonce: string): string => {
-  return `Welcome to StakingIt!\n\nPlease sign this message to authenticate.\nNonce: ${nonce}\nThis signature will not trigger a blockchain transaction or cost any gas fees.`;
+export const getAuthMessage = (): string => {
+  return `Sign this message to authenticate.`;
 };

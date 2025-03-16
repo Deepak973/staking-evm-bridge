@@ -1,12 +1,22 @@
 const AUTH_COOKIE_NAME = "auth_token";
 
-const AUTH_MESSAGE = "Sign this message to authenticate with our dApp";
+const AUTH_MESSAGE = "Sign this message to authenticate.";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const isAuthenticated = (): boolean => {
-  // return !!getCookie(AUTH_COOKIE_NAME);
-  return false;
+  return !!getCookie(AUTH_COOKIE_NAME);
+};
+
+const getCookie = (name: string): string | null => {
+  const cookies = document.cookie.split("; ");
+  for (let cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split("=");
+    if (cookieName === name) {
+      return decodeURIComponent(cookieValue);
+    }
+  }
+  return null;
 };
 
 export const getAuthMessage = (): string => {
@@ -19,13 +29,23 @@ export const verifySignature = async (address: string, signature: string) => {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ address, signature }),
   });
 
   if (!response.ok) throw new Error("Failed to verify signature");
   const data = await response.json();
-  if (data.csrfToken) {
-    // setCsrfToken(data.csrfToken);
-  }
+
+  return data;
+};
+
+export const signOutUser = async () => {
+  const response = await fetch(`${API_URL}/api/auth/signout`, {
+    method: "POST",
+    credentials: "include",
+  });
+  if (!response.ok) throw new Error("Failed to sign out");
+  const data = await response.json();
+
   return data;
 };

@@ -3,37 +3,10 @@ import User, { IUser } from "../models/Users";
 import {
   verifySignature,
   generateToken,
-  generateNonce,
   getAuthMessage,
+  generateNonce,
 } from "../utils/auth";
 import logger from "../utils/logger";
-
-export const getNonce = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const { address } = req.params;
-    let user = await User.findOne({ walletAddress: address.toLowerCase() });
-    const nonce = generateNonce();
-
-    if (!user) {
-      user = new User({
-        walletAddress: address.toLowerCase(),
-        nonce,
-      });
-    } else {
-      user.nonce = nonce;
-    }
-
-    await user.save();
-
-    res.json({
-      message: getAuthMessage(nonce),
-      nonce,
-    });
-  } catch (error) {
-    logger.error("getNonce error:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
 
 export const verifyAuth = async (
   req: Request,
@@ -49,7 +22,7 @@ export const verifyAuth = async (
       return;
     }
 
-    const message = getAuthMessage(user.nonce);
+    const message = getAuthMessage();
     const isValid = verifySignature(message, signature, address);
 
     if (!isValid) {
@@ -71,11 +44,8 @@ export const verifyAuth = async (
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 2 * 60 * 60 * 1000, // 2 hours
     });
-
-    // Generate CSRF token
-    const csrfToken = req.csrfToken();
 
     res.json({
       success: true,
@@ -83,10 +53,22 @@ export const verifyAuth = async (
         address: user.walletAddress,
         isAdmin: user.isAdmin,
       },
-      csrfToken, // Send CSRF token to client
     });
   } catch (error) {
     logger.error("verifyAuth error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const signOutUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    res.clearCookie("auth_token");
+    res.json({ success: true });
+  } catch (error) {
+    logger.error("signOutUser error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

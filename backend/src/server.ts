@@ -13,14 +13,14 @@ dotenv.config();
 const app: Application = express();
 
 // Add access logging before other middleware
-app.use(accessLogger);
+// app.use(accessLogger);
 
 // Security Middlewares
 // app.use(helmet());
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || "*", // Allow frontend domain
-    credentials: true, // Allow sending cookies & auth headers
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:3000", // Use frontend origin
+    credentials: true, // Allow cookies & auth headers
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
@@ -44,10 +44,10 @@ mongoose
 app.use("/api/auth", authRoutes);
 
 // Global Error Handling
-app.use((err: any, req: any, res: any, next: any) => {
-  logger.error(`❌ Error: ${err.message}`);
-  res.status(500).json({ error: "Something went wrong!" });
-});
+// app.use((err: any, req: any, res: any, next: any) => {
+//   logger.error(`❌ Error: ${err.message}`);
+//   res.status(500).json({ error: "Something went wrong!" });
+// });
 
 app.get("/", (req, res) => {
   res.send("All is well");

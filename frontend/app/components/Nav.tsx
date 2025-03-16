@@ -17,7 +17,11 @@ export const Nav = () => {
     <nav className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex space-x-6 items-center">
-          <h1 className="text-xl font-bold">Stake It</h1>
+          <h1 className="text-xl font-bold">
+            <Link href="/" className="text-white">
+              Stake It
+            </Link>
+          </h1>
           <div className="flex space-x-4">
             {navLinks.map((link) => (
               <Link
