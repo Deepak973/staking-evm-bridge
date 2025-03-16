@@ -7,8 +7,8 @@ import { createWeb3Modal } from "@web3modal/wagmi/react";
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "";
 
 const metadata = {
-  name: "Staking Bridge",
-  description: "Staking Bridge Application",
+  name: "Staking It",
+  description: "Staking and Bridge Application",
   url: "https://your-site.com", // TODO: update this
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };

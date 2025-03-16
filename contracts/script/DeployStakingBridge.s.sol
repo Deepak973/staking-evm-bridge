@@ -16,6 +16,7 @@ contract DeployStakingBridge is Script {
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         address treasury = vm.envAddress("TREASURY_ADDRESS");
+        address ccipRouter = vm.envAddress("CCIP_ROUTER_ADDRESS");
         address deployer = vm.addr(deployerPrivateKey);  // Get deployer address
         
         vm.startBroadcast(deployerPrivateKey);
@@ -29,7 +30,9 @@ contract DeployStakingBridge is Script {
         // Prepare initialization data
         bytes memory initData = abi.encodeWithSelector(
             StakingBridge.initialize.selector,
-            treasury
+            treasury,
+            ccipRouter
+          
         );
 
         // Deploy Proxy

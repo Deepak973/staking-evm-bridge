@@ -8,7 +8,7 @@ export const Nav = () => {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: "/", label: "Staked Assets" },
+    { href: "/staked", label: "Staked Assets" },
     { href: "/stake", label: "Stake" },
     { href: "/bridge", label: "Cross-Chain Bridge" },
   ];
@@ -17,7 +17,7 @@ export const Nav = () => {
     <nav className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex space-x-6 items-center">
-          <h1 className="text-xl font-bold">Staking Bridge</h1>
+          <h1 className="text-xl font-bold">Stake It</h1>
           <div className="flex space-x-4">
             {navLinks.map((link) => (
               <Link

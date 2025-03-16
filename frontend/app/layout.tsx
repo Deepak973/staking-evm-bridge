@@ -5,10 +5,11 @@ import "./globals.css";
 import ContextProvider from "@/app/context";
 import { Nav } from "./components/Nav";
 import { Footer } from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Staking Bridge",
-  description: "Staking Bridge",
+  title: "Staking It",
+  description: "Staking It",
 };
 
 export default async function RootLayout({
@@ -22,6 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen">
+        <Toaster position="bottom-right" />
         <ContextProvider cookies={cookies}>
           <Nav />
           <main className="container mx-auto px-4 flex-grow">{children}</main>

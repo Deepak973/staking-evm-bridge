@@ -11,9 +11,9 @@ const queryClient = new QueryClient();
 
 // Set up metadata
 const metadata = {
-  name: "next-reown-appkit",
-  description: "next-reown-appkit",
-  url: "https://github.com/0xonerb/next-reown-appkit-ssr", // origin must match your domain & subdomain
+  name: "Staking It",
+  description: "Staking It",
+  url: "https://staking-bridge.vercel.app/", // origin must match your domain & subdomain
   icons: ["https://avatars.githubusercontent.com/u/179229932"],
 };
 
