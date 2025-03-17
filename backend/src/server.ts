@@ -20,7 +20,7 @@ app.use(accessLogger);
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.NEXT_PUBLIC_CLIENT_ORIGIN || "http://localhost:3000", // Use frontend origin
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:3000", // Use frontend origin
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
