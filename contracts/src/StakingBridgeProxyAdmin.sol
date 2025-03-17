@@ -5,4 +5,4 @@ import "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
 
 contract StakingBridgeProxyAdmin is ProxyAdmin {
     constructor(address owner) ProxyAdmin(owner) {}
-} 
+}

@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import contractABI from "../utils/StakingBridge.json";
 import Transaction from "../models/Transaction";
 import logger from "../utils/logger";
+import contractAddress from "../utils/contractAddress.json";
 
 export class ContractEventService {
   private provider: ethers.WebSocketProvider;
@@ -12,7 +13,7 @@ export class ContractEventService {
       "wss://base-sepolia.g.alchemy.com/v2/9WBG_MVRsmOhaR5bEVKYclPwb_q9tIiw"
     );
     this.contract = new ethers.Contract(
-      "0x494B5aE8c79292da3238513eB69eBB1373d127d5",
+      contractAddress.Implementation,
       contractABI.abi,
       this.provider
     );

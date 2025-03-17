@@ -345,6 +345,19 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         return s_router.getFee(_destinationChainSelector, evm2AnyMessage);
     }
 
+    /// @dev Withdraw ERC-20 tokens sent by mistake
+    /// @param _token The token address
+    /// @param _amount The amount of tokens to withdraw
+    function withdrawERC20(address _token, uint256 _amount) external onlyOwner {
+        IERC20(_token).safeTransfer(msg.sender, _amount);
+    }
+
+    /// @dev Withdraw ETH sent by mistake
+    /// @param _amount The amount of ETH to withdraw
+    function withdrawETH(uint256 _amount) external onlyOwner {
+        payable(msg.sender).transfer(_amount);
+    }
+
     /// @notice Allow contract to receive ETH
     receive() external payable {}
 }
