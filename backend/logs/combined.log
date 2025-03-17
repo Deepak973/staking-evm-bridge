@@ -478,3 +478,7 @@
 {"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T06:16:22.512Z"}
 {"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T06:16:22.519Z"}
 {"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T06:16:22.827Z"}
+{"duration":"7ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T06:21:17.695Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"72ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-17T06:21:17.776Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T06:21:28.385Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"160ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-17T06:21:28.549Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}

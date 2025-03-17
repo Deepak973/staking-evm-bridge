@@ -49,11 +49,11 @@ export const Nav = () => {
 
           {/* Connect Button */}
           <div className="flex items-center">
-            {/* <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-[1px] rounded-lg"> */}
-            {/* <div className="bg-white rounded-lg"> */}
-            <ConnectButton />
-            {/* </div> */}
-            {/* </div> */}
+            <div className="border border-gray-300 rounded-lg p-[1px]">
+              <div className="bg-white rounded-lg">
+                <ConnectButton />
+              </div>
+            </div>
           </div>
         </div>
 
