@@ -53,8 +53,6 @@ export const verifyAuth = async (
       secure: true,
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: "staking-evm-bridge.vercel.app",
-      path: "/",
     });
 
     res.cookie("csrf_token_client", csrfToken, {
@@ -62,8 +60,6 @@ export const verifyAuth = async (
       secure: true,
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: "staking-evm-bridge.vercel.app",
-      path: "/",
     });
 
     res.cookie("csrf_token", csrfToken, {
@@ -71,16 +67,12 @@ export const verifyAuth = async (
       secure: true,
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: "staking-evm-bridge.vercel.app",
-      path: "/",
     });
     res.cookie("auth_token_client", token, {
       httpOnly: false, //  Frontend can read it
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: "staking-evm-bridge.vercel.app",
-      path: "/",
     });
 
     res.json({
