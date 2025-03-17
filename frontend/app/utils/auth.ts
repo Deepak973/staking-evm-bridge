@@ -6,7 +6,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const getCookie = (name: string): string | null => {
   const cookies = document.cookie.split("; ");
-  console.log("cookies", cookies);
+
   for (let cookie of cookies) {
     const [cookieName, cookieValue] = cookie.split("=");
     if (cookieName === name) {

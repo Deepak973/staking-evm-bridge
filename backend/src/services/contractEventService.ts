@@ -3,6 +3,9 @@ import contractABI from "../utils/StakingBridge.json";
 import Transaction from "../models/Transaction";
 import logger from "../utils/logger";
 import contractAddress from "../utils/contractAddress.json";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export class ContractEventService {
   private provider: ethers.WebSocketProvider;
@@ -10,10 +13,10 @@ export class ContractEventService {
 
   constructor() {
     this.provider = new ethers.WebSocketProvider(
-      "wss://base-sepolia.g.alchemy.com/v2/9WBG_MVRsmOhaR5bEVKYclPwb_q9tIiw"
+      process.env.WEBSOCKET_RPC_URL || ""
     );
     this.contract = new ethers.Contract(
-      contractAddress.Implementation,
+      contractAddress.Proxy,
       contractABI.abi,
       this.provider
     );

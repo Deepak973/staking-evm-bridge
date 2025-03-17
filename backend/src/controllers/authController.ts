@@ -8,6 +8,9 @@ import {
   generateCsrfToken,
 } from "../utils/auth";
 import logger from "../utils/logger";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const verifyAuth = async (
   req: Request,
@@ -48,28 +51,32 @@ export const verifyAuth = async (
     res.cookie("auth_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
+      domain: process.env.CLIENT_ORIGIN || "",
     });
 
     res.cookie("csrf_token_client", csrfToken, {
       httpOnly: false, //  Accessible in frontend
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
+      domain: process.env.CLIENT_ORIGIN || "",
     });
 
     res.cookie("csrf_token", csrfToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
+      domain: process.env.CLIENT_ORIGIN || "",
     });
     res.cookie("auth_token_client", token, {
       httpOnly: false, //  Frontend can read it
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
+      domain: process.env.CLIENT_ORIGIN || "",
     });
 
     res.json({

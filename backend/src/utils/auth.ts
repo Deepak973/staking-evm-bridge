@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken";
 import { Request } from "express";
 import logger from "./logger";
 import crypto from "crypto";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const verifySignature = (
   message: string,
