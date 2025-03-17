@@ -435,3 +435,31 @@
 {"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-16T19:21:31.157Z"}
 {"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-16T19:21:31.160Z"}
 {"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-16T19:21:31.508Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:09:16.878Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:09:16.884Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:09:17.242Z"}
+{"duration":"2ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T05:09:29.021Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"16ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-17T05:09:29.039Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T05:09:35.718Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"level":"error","message":"verifyAuth error: option domain is invalid","stack":"TypeError: option domain is invalid\n    at Object.serialize (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/cookie@0.7.1/node_modules/cookie/index.js:216:13)\n    at ServerResponse.res.cookie (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/response.js:892:36)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/src/controllers/authController.ts:51:9\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/controllers/authController.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-03-17T05:09:35.869Z"}
+{"duration":"149ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":500,"timestamp":"2025-03-17T05:09:35.869Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:11:05.299Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:11:05.303Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:11:05.638Z"}
+{"duration":"3ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T05:11:20.133Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"17ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-17T05:11:20.152Z","url":"/api/auth/signout","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"duration":"1ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T05:11:26.431Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"level":"error","message":"verifyAuth error: option domain is invalid","stack":"TypeError: option domain is invalid\n    at Object.serialize (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/cookie@0.7.1/node_modules/cookie/index.js:216:13)\n    at ServerResponse.res.cookie (/Users/deepakrathore/Projects/staking-evm-bridge/backend/node_modules/.pnpm/express@4.21.2/node_modules/express/lib/response.js:892:36)\n    at /Users/deepakrathore/Projects/staking-evm-bridge/backend/src/controllers/authController.ts:51:9\n    at Generator.next (<anonymous>)\n    at fulfilled (/Users/deepakrathore/Projects/staking-evm-bridge/backend/src/controllers/authController.ts:5:58)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-03-17T05:11:26.599Z"}
+{"duration":"166ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":500,"timestamp":"2025-03-17T05:11:26.601Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:13:32.094Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:13:32.098Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:13:32.410Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:14:20.784Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:14:20.790Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:14:21.090Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:15:22.169Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:15:22.172Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:15:22.466Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:15:39.797Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:15:39.804Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:15:40.088Z"}

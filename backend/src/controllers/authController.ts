@@ -28,7 +28,7 @@ export const verifyAuth = async (
         lastSignIn: new Date(),
       });
     }
-
+    console.log("Setting cookie for domain:", req.hostname);
     const message = getAuthMessage();
     const isValid = verifySignature(message, signature, address);
 
@@ -37,7 +37,7 @@ export const verifyAuth = async (
       res.status(401).json({ error: "Invalid signature" });
       return;
     }
-
+    console.log("CLIENT_ORIGIN", process.env.CLIENT_ORIGIN);
     // Generate new nonce for next auth
     user.nonce = generateNonce();
     user.lastSignIn = new Date();
@@ -50,33 +50,37 @@ export const verifyAuth = async (
     // Set HTTP-only cookies
     res.cookie("auth_token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: process.env.CLIENT_ORIGIN || "",
+      domain: "staking-evm-bridge.vercel.app",
+      path: "/",
     });
 
     res.cookie("csrf_token_client", csrfToken, {
       httpOnly: false, //  Accessible in frontend
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: process.env.CLIENT_ORIGIN || "",
+      domain: "staking-evm-bridge.vercel.app",
+      path: "/",
     });
 
     res.cookie("csrf_token", csrfToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: process.env.CLIENT_ORIGIN || "",
+      domain: "staking-evm-bridge.vercel.app",
+      path: "/",
     });
     res.cookie("auth_token_client", token, {
       httpOnly: false, //  Frontend can read it
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hours
-      domain: process.env.CLIENT_ORIGIN || "",
+      domain: "staking-evm-bridge.vercel.app",
+      path: "/",
     });
 
     res.json({
