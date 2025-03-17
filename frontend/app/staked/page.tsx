@@ -88,6 +88,7 @@ export default function StakedAssetsPage() {
       setIsLoading(true);
       try {
         const assets = await getStakedAssets(address);
+        console.log("assets", assets);
         setStakedAssets(assets);
 
         // Load token details for each ERC20 token
@@ -163,6 +164,13 @@ export default function StakedAssetsPage() {
   const handleClaimRewards = async (index: number) => {
     if (!isConnected) {
       toast.error("Please connect your wallet first");
+      return;
+    }
+
+    // Check if rewards can be claimed
+    const stake = stakedAssets[index];
+    if (!stake.allowedToClaimRewards) {
+      toast.error("Not eligible to claim rewards yet");
       return;
     }
 
@@ -478,6 +486,7 @@ export default function StakedAssetsPage() {
                           </button>
                         )}
 
+                        {/* Only show claim rewards button if allowed and not claimed yet */}
                         {stake.allowedToClaimRewards &&
                           !stake.rewardsClaimed && (
                             <button

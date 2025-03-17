@@ -439,3 +439,18 @@
 {"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:15:39.797Z"}
 {"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:15:39.804Z"}
 {"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:15:40.088Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T05:59:30.620Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T05:59:30.626Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T05:59:30.969Z"}
+{"duration":"7ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T05:59:47.322Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"171ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-17T05:59:47.495Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"114ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T06:01:26.882Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"535ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-17T06:01:27.501Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"3ms","ip":"::1","level":"info","message":"Access Log","method":"OPTIONS","status":204,"timestamp":"2025-03-17T06:01:56.651Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"duration":"87ms","ip":"::1","level":"info","message":"Access Log","method":"POST","status":200,"timestamp":"2025-03-17T06:01:56.741Z","url":"/api/auth/verify","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T06:16:07.254Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T06:16:07.262Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T06:16:07.909Z"}
+{"level":"info","message":"Contract event listeners initialized","timestamp":"2025-03-17T06:16:22.512Z"}
+{"level":"info","message":"🚀 Server running on port 3010","timestamp":"2025-03-17T06:16:22.519Z"}
+{"level":"info","message":"✅ MongoDB Connected","timestamp":"2025-03-17T06:16:22.827Z"}

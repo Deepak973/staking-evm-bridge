@@ -70,19 +70,19 @@ forge script script/DeployStakingBridge.s.sol \
 
 ```json
 {
-  "Implementation": "0xcc763626A1F0daf181A8470D8cD8264D9d518124",
-  "ProxyAdmin": "0x4ceDc84B14987B8e07ea1dc273CB89A3817557Ff",
-  "Proxy": "0x8FCfC0d582dEB98ee1f67432DaA5B9b9835d84fA"
+  "Implementation": "0x763157627b04E4E40C6048e66fD94fFf5081DACD",
+  "ProxyAdmin": "0x0b52a8Ed3501Ec4443e923206D26DaBb303d7e69",
+  "Proxy": "0xf278B688d49a86b89A56957e11521f70E4e98B31"
 }
 ```
 
 ### Verified Source code
 
-Implementation: https://sepolia.basescan.org/address/0x8FCfC0d582dEB98ee1f67432DaA5B9b9835d84fA#writeProxyContract
+Implementation: https://sepolia.basescan.org/address/0x763157627b04E4E40C6048e66fD94fFf5081DACD#writeProxyContract
 
-ProxyAdmin: https://sepolia.basescan.org/address/0x4ceDc84B14987B8e07ea1dc273CB89A3817557Ff#code
+ProxyAdmin: https://sepolia.basescan.org/address/0x0b52a8Ed3501Ec4443e923206D26DaBb303d7e69#code
 
-Proxy: https://sepolia.basescan.org/address/0x8FCfC0d582dEB98ee1f67432DaA5B9b9835d84fA#code
+Proxy: https://sepolia.basescan.org/address/0xf278B688d49a86b89A56957e11521f70E4e98B31#code
 
 ### Key Features
 

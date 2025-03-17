@@ -176,7 +176,9 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
         //set claimed to true
         stakeData.claimed = true;
         //check if staking period is more than 180 days, user can claim rewards
-        if (stakingPeriod > 180 days) {
+        bool eligibleForRewards = (stakeData.startTime + stakingPeriod) >= (stakeData.startTime + 180 days);
+
+        if (eligibleForRewards) {
             //if staking period is more than 180 days, user can claim rewards
             stakeData.allowedToClaimRewards = true;
         }
@@ -214,9 +216,10 @@ contract StakingBridge is Initializable, OwnableUpgradeable, ReentrancyGuardUpgr
                 } else {
                     IERC20(stakeData.token).safeTransfer(user, amount);
                 }
+                bool eligibleForRewards = (stakeData.startTime + stakingPeriod) >= (stakeData.startTime + 180 days);
 
                 //check if staking period is more than 180 days, user can claim rewards
-                if (stakingPeriod >= 180 days) {
+                if (eligibleForRewards) {
                     stakeData.allowedToClaimRewards = true;
                 }
 
